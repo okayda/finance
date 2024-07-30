@@ -25,6 +25,9 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import CategoryPicker from "./CategoryPicker";
+import React from "react";
+import { CookingPot } from "lucide-react";
 
 interface Props {
   trigger: ReactNode;
@@ -39,6 +42,15 @@ export default function CreateTransactionDialog({ trigger, type }: Props) {
       date: new Date(),
     },
   });
+
+  const handleCategoryChange = React.useCallback(
+    (value: string) => {
+      form.setValue("category", value);
+
+      console.log(value);
+    },
+    [form]
+  );
 
   return (
     <Dialog>
@@ -79,7 +91,6 @@ export default function CreateTransactionDialog({ trigger, type }: Props) {
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="amount"
@@ -97,6 +108,28 @@ export default function CreateTransactionDialog({ trigger, type }: Props) {
                 </FormItem>
               )}
             />
+            <div className="flex items-center justify-between gap-2">
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="mr-2">Category</FormLabel>
+
+                    <FormControl>
+                      <CategoryPicker
+                        type={type}
+                        onChange={handleCategoryChange}
+                      />
+                    </FormControl>
+
+                    <FormDescription>
+                      Select a category for this transaction
+                    </FormDescription>
+                  </FormItem>
+                )}
+              />
+            </div>
           </form>
         </Form>
       </DialogContent>
