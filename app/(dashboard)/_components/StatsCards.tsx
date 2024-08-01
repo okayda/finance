@@ -4,6 +4,7 @@ import { GetBalanceStatsResponseType } from "@/app/api/stats/balance/route";
 import SkelettonWrapper from "@/components/SkeletonWrapper";
 import { Card } from "@/components/ui/card";
 import { DateToUTCDate, GetFormatterForCurrency } from "@/lib/helpers";
+import { cn } from "@/lib/utils";
 import { UserSettings } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { TrendingDown, TrendingUp, Wallet } from "lucide-react";
@@ -106,7 +107,11 @@ function StatCard({
   );
 
   return (
-    <Card className="flex h-24 w-full items-center gap-2 p-4">
+    <Card
+      className={cn("flex h-24 w-full items-center gap-2 p-4", {
+        "border-purple-500": title === "Balance",
+      })}
+    >
       {icon}
       <div>
         <p className="text-muted-foreground font-bold">{title}</p>
