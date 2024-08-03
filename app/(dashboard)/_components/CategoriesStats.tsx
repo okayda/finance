@@ -19,8 +19,6 @@ interface Props {
 }
 
 export default function CategoriesStats({ userSettings, from, to }: Props) {
-  // fetch(`/api/stats/balance?from=${from}&to=${DateToUTCDate(to)}`).then(
-
   const statsQuery = useQuery<GetCategoriesStatsResponseType>({
     queryKey: ["overview", "stats", "categories", from, to],
     queryFn: () =>
@@ -82,6 +80,7 @@ function CategoriesCard({
           )}
         </CardTitle>
       </CardHeader>
+
       <Separator />
 
       <div className="flex items-center justify-between gap-2">
