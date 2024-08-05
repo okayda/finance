@@ -1,32 +1,26 @@
 "use client";
 
-import React from "react";
-import { UserSettings } from "@prisma/client";
-import { differenceInDays, startOfMonth } from "date-fns";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { MAX_DATE_RANGE_DAYS } from "@/lib/constants";
+import { differenceInDays, startOfMonth } from "date-fns";
+import React from "react";
 import { toast } from "sonner";
-import StatsCards from "./StatsCards";
-import CategoriesStats from "./CategoriesStats";
+import TransactionTable from "./_components/TransactionTable";
 
-export default function Overview({
-  userSettings,
-}: {
-  userSettings: UserSettings;
-}) {
-  const [dateRange, setDateRange] = React.useState<{
-    from: Date;
-    to: Date;
-  }>({
+export default function TransactionsPage() {
+  const [dateRange, setDateRange] = React.useState<{ from: Date; to: Date }>({
     from: startOfMonth(new Date()),
     to: new Date(),
   });
 
   return (
     <>
-      <div className="container flex flex-wrap items-end justify-between gap-2 py-6">
-        <h2 className="text-3xl font-bold">Overview</h2>
-        <div className="flex items-center gap-3">
+      <div className="border-b bg-card">
+        <div className="container flex flex-wrap items-center justify-between gap-6 py-8">
+          <div>
+            <p className="text-3xl font-bold">Transactions history</p>
+          </div>
+
           <DateRangePicker
             initialDateFrom={dateRange.from}
             initialDateTo={dateRange.to}
@@ -49,18 +43,8 @@ export default function Overview({
         </div>
       </div>
 
-      <div className="container flex w-full flex-col gap-2">
-        <StatsCards
-          userSettings={userSettings}
-          from={dateRange.from}
-          to={dateRange.to}
-        />
-
-        <CategoriesStats
-          userSettings={userSettings}
-          from={dateRange.from}
-          to={dateRange.to}
-        />
+      <div className="container">
+        <TransactionTable from={dateRange.from} to={dateRange.to} />
       </div>
     </>
   );

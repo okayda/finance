@@ -30,12 +30,12 @@ export default function DeleteCategoryDialog({ category, trigger }: Props) {
   const deleteMutation = useMutation({
     mutationFn: DeleteCategory,
 
-    onSuccess: async () => {
+    onSuccess: () => {
       toast.success("Category deleted successfully", {
         id: categoryIdentifier,
       });
 
-      await queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
 
     onError: () => {
@@ -54,7 +54,7 @@ export default function DeleteCategoryDialog({ category, trigger }: Props) {
 
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
-            category
+            transaction
           </AlertDialogDescription>
         </AlertDialogHeader>
 

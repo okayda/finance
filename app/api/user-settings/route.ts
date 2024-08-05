@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
   const user = await currentUser();
+
   if (!user) redirect("/sign-in");
 
   let userSettings = await prisma.userSettings.findUnique({
@@ -12,11 +13,12 @@ export async function GET(request: Request) {
     },
   });
 
+  // if the user decided not to set a default currency will apply this currency by default
   if (!userSettings) {
     userSettings = await prisma.userSettings.create({
       data: {
         userId: user.id,
-        currency: "USD",
+        currency: "PHP",
       },
     });
   }

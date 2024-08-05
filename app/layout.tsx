@@ -20,15 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html
-        lang="en"
-        className="dark"
-        style={{
-          colorScheme: "dark",
-        }}
-      >
-        <body className={inter.className}>
+    <ClerkProvider afterSignOutUrl="/sign-in">
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.className} antialiased`}>
           <Toaster richColors position="bottom-right" />
           <RootProviders>{children}</RootProviders>
         </body>

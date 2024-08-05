@@ -76,17 +76,16 @@ export default function CreateTransactionDialog({ trigger, type }: Props) {
         id: "create-transaction",
       });
 
+      queryClient.invalidateQueries({
+        queryKey: ["overview"],
+      });
+
       form.reset({
         type,
         description: "",
         amount: 0,
-        date: new Date(),
+        date: DateToUTCDate(new Date()),
         category: undefined,
-      });
-
-      // re-fetch data in the homepage
-      queryClient.invalidateQueries({
-        queryKey: ["overview"],
       });
 
       setOpen((prev) => !prev);

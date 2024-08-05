@@ -39,26 +39,16 @@ export function CurrencyComboBox() {
     queryFn: () => fetch("/api/user-settings").then((res) => res.json()),
   });
 
-  React.useEffect(() => {
-    if (!userSettings.data) return;
-
-    const userCurrency = Currencies.find(
-      (currency) => currency.value === userSettings.data.currency
-    );
-
-    if (userCurrency) {
-      setSelectedOption(userCurrency);
-    }
-  }, [userSettings]);
-
   const mutation = useMutation({
     mutationFn: UpdateUserCurrency,
 
     onSuccess: (data: UserSettings) => {
-      queryClient.setQueryData(["userSettings"], data);
-
-      toast.success("Currency updated successfully", {
+      toast.success("Currency set successfully", {
         id: "update-currency",
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["userSettings"],
       });
 
       setSelectedOption(

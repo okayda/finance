@@ -1,5 +1,11 @@
 export const Currencies = [
   {
+    value: "PHP",
+    label: "₱ Peso",
+    locale: "fil-PH",
+  },
+
+  {
     value: "USD",
     label: "$ Dollar",
     locale: "en-US",
@@ -13,7 +19,7 @@ export const Currencies = [
 
   {
     value: "JPY",
-    label: "€ Yen",
+    label: "¥ Yen",
     locale: "ja-JP",
   },
 

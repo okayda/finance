@@ -50,6 +50,7 @@ export default function page() {
         </Card>
 
         <CategoryList type="income" />
+
         <CategoryList type="expense" />
       </div>
     </>
